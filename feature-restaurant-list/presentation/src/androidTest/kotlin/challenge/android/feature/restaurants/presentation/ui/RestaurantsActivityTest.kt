@@ -6,6 +6,7 @@ import challenge.android.common.utils.SingleLiveEvent
 import challenge.android.feature.restaurants.presentation.R
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
 import challenge.android.instrumentation.testutils.lazyActivityScenarioRule
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import dagger.hilt.android.testing.BindValue
@@ -19,6 +20,8 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+
+private const val AN_ERROR_MESSAGE = "an error"
 
 @HiltAndroidTest
 class RestaurantsActivityTest {
@@ -78,5 +81,16 @@ class RestaurantsActivityTest {
         /*** Case 2 ***/
         showProgress.postValue(false)
         assertNotDisplayed(R.id.progressShimmer)
+    }
+
+    @Test
+    fun shouldShowError_WRTo_LiveDataSubject() {
+        error.postValue(AN_ERROR_MESSAGE)
+
+        assertDisplayed(com.google.android.material.R.id.snackbar_text)
+        BaristaVisibilityAssertions.assertContains(
+            com.google.android.material.R.id.snackbar_text,
+            AN_ERROR_MESSAGE
+        )
     }
 }

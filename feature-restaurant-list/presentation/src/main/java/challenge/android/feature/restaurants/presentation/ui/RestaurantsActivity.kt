@@ -10,6 +10,7 @@ import challenge.android.common.extensions.bind
 import challenge.android.feature.restaurants.presentation.R
 import challenge.android.feature.restaurants.presentation.databinding.ActivityRestaurantListBinding
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +29,13 @@ class RestaurantsActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         binding.progressShimmer.bind(viewModel.showProgress(), this)
-        viewModel.error().observe(this) { }
+        viewModel.error().observe(this) {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
+                .setAction("CLOSE") {
+                    // NO OP, on click of the action, it will be dismissed by default.
+                }
+                .show()
+        }
     }
 
     private fun setupRecyclerView() {
