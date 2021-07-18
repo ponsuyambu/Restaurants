@@ -11,15 +11,16 @@ fun List<Restaurant>.toUiModel(): List<RestaurantUiModel> =
         }
     }
 
+fun RestaurantStatus.displayName() = when (this) {
+    RestaurantStatus.OPEN -> "Open"
+    RestaurantStatus.ORDER_AHEAD -> "Order Ahead"
+    RestaurantStatus.CLOSED -> "Closed"
+}
+
 fun Restaurant.toUiModel(): RestaurantUiModel {
-    val status = when (status) {
-        RestaurantStatus.OPEN -> "Open"
-        RestaurantStatus.ORDER_AHEAD -> "Order Ahead"
-        RestaurantStatus.CLOSED -> "Closed"
-    }
     return RestaurantUiModel(
         name,
-        status,
+        status.displayName(),
         rating,
         matchScore,
         newScaleScore,
