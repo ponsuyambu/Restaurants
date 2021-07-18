@@ -25,9 +25,11 @@ class RestaurantsAdapter(
     override fun getItemCount() = restaurants.size
 
     class RestaurantViewHolder(
-        binding: RowItemRestuarantBinding,
+        private val binding: RowItemRestuarantBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(uiModel: RestaurantUiModel) {
+            binding.tvName.text = uiModel.name
+            binding.tvRating.text = uiModel.rating.toString()
         }
     }
 }

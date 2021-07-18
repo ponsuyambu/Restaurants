@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import challenge.android.common.extensions.bind
+import challenge.android.common.extensions.bindVisibility
 import challenge.android.feature.restaurants.presentation.R
 import challenge.android.feature.restaurants.presentation.databinding.ActivityRestaurantListBinding
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
@@ -36,10 +37,11 @@ class RestaurantsActivity : AppCompatActivity() {
                 }
                 .show()
         }
+        binding.listRestaurants.bindVisibility(viewModel.showRestaurantsList(), this)
     }
 
     private fun setupRecyclerView() {
-        restaurantsAdapter = RestaurantsAdapter(listOf())
+        restaurantsAdapter = RestaurantsAdapter(viewModel.restaurants())
         binding.listRestaurants.apply {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(
