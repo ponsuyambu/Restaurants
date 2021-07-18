@@ -25,7 +25,6 @@ class UiModelMapperTest {
 
         assertRestaurantWithUiModel(RESTAURANT_1, restaurantUiModelList[0])
         assertRestaurantWithUiModel(RESTAURANT_2, restaurantUiModelList[1])
-
     }
 
     @Test
