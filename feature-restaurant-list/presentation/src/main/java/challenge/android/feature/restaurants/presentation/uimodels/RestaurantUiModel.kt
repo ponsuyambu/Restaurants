@@ -12,4 +12,3 @@ data class RestaurantUiModel(
     val deliveryCost: Float,
     val averagePrice: Float,
 )
-
