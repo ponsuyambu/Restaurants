@@ -3,6 +3,8 @@ package challenge.android.feature.restaurants.presentation.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import challenge.android.feature.restaurants.presentation.mapper.toUiModel
+import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_1
+import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_2
 import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_UI_MODEL_1
 import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_UI_MODEL_2
 import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiModel
@@ -10,6 +12,8 @@ import challenge.android.testutils.TestCoroutineRule
 import challenge.feature.restaurants.domain.Restaurant
 import challenge.feature.restaurants.usecase.GetRestaurantListUseCase
 import io.mockk.MockKAnnotations
+import io.mockk.clearAllMocks
+import io.mockk.clearStaticMockk
 import io.mockk.coEvery
 import io.mockk.coVerifyOrder
 import io.mockk.every
@@ -57,6 +61,7 @@ class RestaurantsViewModelTest {
         viewModel.showProgress().observeForever(showProgressObserver)
         viewModel.error().observeForever(errorObserver)
         viewModel.showRestaurantsList().observeForever(showRestaurantsListObserver)
+        coEvery { getRestaurantListUseCase.invoke() } returns listOf(RESTAURANT_1, RESTAURANT_2)
     }
 
     @After
@@ -64,13 +69,13 @@ class RestaurantsViewModelTest {
         viewModel.showProgress().removeObserver(showProgressObserver)
         viewModel.error().removeObserver(errorObserver)
         viewModel.showRestaurantsList().removeObserver(showRestaurantsListObserver)
+        clearAllMocks()
+        clearStaticMockk()
     }
 
     @Test
     fun `should handle progress bar when restaurant list requested`() =
         testCoroutineRule.runBlockingTest {
-            coEvery { getRestaurantListUseCase.invoke() } returns mutableListOf()
-
             viewModel.requestRestaurants()
 
             coVerifyOrder {
