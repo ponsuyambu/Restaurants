@@ -1,3 +1,4 @@
+import challenge.android.gradleplugins.extensions.appModules
 import challenge.android.gradleplugins.extensions.gson
 
 plugins {
@@ -5,5 +6,8 @@ plugins {
 }
 
 dependencies {
+    with(appModules()) {
+        featureRestaurantList.domain()
+    }
     gson()
 }
