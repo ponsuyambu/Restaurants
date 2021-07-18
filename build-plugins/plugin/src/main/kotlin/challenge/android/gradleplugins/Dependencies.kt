@@ -68,13 +68,13 @@ object Dependencies {
 
         object LifeCycle {
             private const val lifecycleVersion = "2.3.1"
-            private const val lifecycleExtensionsVersion = "2.2.0"
+            private const val lifecycleExtensionsVersion = "2.4.0-alpha01"
             const val VIEW_MODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             const val LIVE_DATA = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
             const val SAVED_STATE =
                 "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
             const val EXTENSIONS =
-                "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
+                "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleExtensionsVersion"
         }
 
         object Ktx {

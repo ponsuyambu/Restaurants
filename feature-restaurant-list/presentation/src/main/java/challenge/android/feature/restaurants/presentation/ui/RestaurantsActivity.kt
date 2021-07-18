@@ -21,7 +21,13 @@ class RestaurantsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_list)
         setupRecyclerView()
+        setupObservers()
         viewModel.requestRestaurants()
+    }
+
+    private fun setupObservers() {
+        viewModel.showProgress().observe(this) { }
+        viewModel.error().observe(this) { }
     }
 
     private fun setupRecyclerView() {
