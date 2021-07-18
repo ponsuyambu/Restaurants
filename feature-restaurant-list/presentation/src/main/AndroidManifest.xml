@@ -3,7 +3,7 @@
     package="challenge.android.feature.restaurants.presentation">
 
     <application>
-        <activity android:name=".RestaurantListActivity">
+        <activity android:name=".ui.RestaurantsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
