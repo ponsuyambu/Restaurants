@@ -21,8 +21,34 @@ class RestaurantsViewModel @Inject constructor() : BaseViewModel() {
             showProgress.value = true
             delay(3000)
             restaurants.apply {
-                add(RestaurantUiModel("Restaurant 1", 4f))
-                add(RestaurantUiModel("Restaurant 2", 3f))
+                add(
+                    RestaurantUiModel(
+                        "Restaurant 1",
+                        "Open",
+                        4f,
+                        10f,
+                        145f,
+                        15f,
+                        13f,
+                        12f,
+                        10f,
+                        8f
+                    )
+                )
+                add(
+                    RestaurantUiModel(
+                        "Restaurant 2",
+                        "Closed",
+                        3f,
+                        10f,
+                        145f,
+                        15f,
+                        13f,
+                        12f,
+                        10f,
+                        8f
+                    )
+                )
             }
             showRestaurantsList.postValue(true)
             showProgress.value = false

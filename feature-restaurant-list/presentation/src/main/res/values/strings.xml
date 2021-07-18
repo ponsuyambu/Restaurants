@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="restaurant_name">Restaurant Name</string>
+    <string name="start_rating">start_rating</string>
+    <string name="min_price">Min Price</string>
+    <string name="match_score">Match Score:</string>
+    <string name="new_scale">Is New:</string>
 </resources>

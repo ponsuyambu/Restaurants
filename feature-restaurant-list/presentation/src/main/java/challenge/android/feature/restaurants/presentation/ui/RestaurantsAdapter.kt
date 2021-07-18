@@ -27,9 +27,19 @@ class RestaurantsAdapter(
     class RestaurantViewHolder(
         private val binding: RowItemRestuarantBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(uiModel: RestaurantUiModel) {
-            binding.tvName.text = uiModel.name
-            binding.tvRating.text = uiModel.rating.toString()
+        fun bind(restaurant: RestaurantUiModel) {
+            binding.apply {
+                tvName.text = restaurant.name
+                tvStatus.text = restaurant.status
+                tvRating.text = restaurant.rating.toString()
+                tvMatchScore.text = restaurant.matchScore.toString()
+                tvNewestScore.text = restaurant.newScaleScore.toString()
+                tvDistance.text = restaurant.distance.toString()
+                tvPopularity.text = restaurant.popularityScore.toString()
+                tvMinPrice.text = restaurant.minimumCost.toString()
+                tvDeliveryCost.text = restaurant.deliveryCost.toString()
+                tvPrice.text = restaurant.averagePrice.toString()
+            }
         }
     }
 }

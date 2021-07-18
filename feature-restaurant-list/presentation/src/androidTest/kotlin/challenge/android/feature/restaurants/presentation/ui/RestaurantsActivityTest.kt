@@ -26,8 +26,10 @@ import org.junit.Rule
 import org.junit.Test
 
 private const val AN_ERROR_MESSAGE = "an error"
-private val RESTAURANT_1 = RestaurantUiModel("Restaurant 1", 4.5f)
-private val RESTAURANT_2 = RestaurantUiModel("Restaurant 2", 4f)
+private val RESTAURANT_1 =
+    RestaurantUiModel("Restaurant 1", "Open", 4.5f, 10f, 20f, 12f, 10f, 55f, 33f, 35f)
+private val RESTAURANT_2 =
+    RestaurantUiModel("Restaurant 2", "Closed", 4f, 16f, 4f, 65f, 43f, 76f, 23f, 34f)
 
 @HiltAndroidTest
 class RestaurantsActivityTest {
@@ -108,18 +110,27 @@ class RestaurantsActivityTest {
         position: Int,
         restaurant: RestaurantUiModel
     ) {
-        assertDisplayedAtPosition(
-            R.id.listRestaurants,
-            position,
-            R.id.tvName,
-            restaurant.name
-        )
-        assertDisplayedAtPosition(
-            R.id.listRestaurants,
-            position,
-            R.id.tvRating,
-            restaurant.rating.toString()
-        )
+        val uiDataMap = mutableMapOf<Int, String>().apply {
+            R.id.tvName to restaurant.name
+            R.id.tvStatus to restaurant.status
+            R.id.tvRating to restaurant.rating.toString()
+            R.id.tvMatchScore to restaurant.matchScore.toString()
+            R.id.tvNewestScore to restaurant.newScaleScore.toString()
+            R.id.tvDistance to restaurant.distance.toString()
+            R.id.tvPopularity to restaurant.popularityScore.toString()
+            R.id.tvMinPrice to restaurant.minimumCost.toString()
+            R.id.tvDeliveryCost to restaurant.deliveryCost.toString()
+            R.id.tvPrice to restaurant.averagePrice.toString()
+        }
+
+        uiDataMap.forEach { (viewId, data) ->
+            assertDisplayedAtPosition(
+                R.id.listRestaurants,
+                position,
+                viewId,
+                data
+            )
+        }
     }
 
     private fun setupData() {
