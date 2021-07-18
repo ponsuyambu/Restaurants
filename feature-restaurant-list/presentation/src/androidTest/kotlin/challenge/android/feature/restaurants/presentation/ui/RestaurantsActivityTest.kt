@@ -26,10 +26,6 @@ import org.junit.Rule
 import org.junit.Test
 
 private const val AN_ERROR_MESSAGE = "an error"
-private val RESTAURANT_1 =
-    RestaurantUiModel("Restaurant 1", "Open", 4.5f, 10f, 20f, 12f, 10f, 55f, 33f, 35f)
-private val RESTAURANT_2 =
-    RestaurantUiModel("Restaurant 2", "Closed", 4f, 16f, 4f, 65f, 43f, 76f, 23f, 34f)
 
 @HiltAndroidTest
 class RestaurantsActivityTest {
@@ -137,7 +133,7 @@ class RestaurantsActivityTest {
         showProgress = spyk()
         error = spyk()
         showRestaurantsList = spyk()
-        restaurants = mutableListOf(RESTAURANT_1, RESTAURANT_2)
+        restaurants = mutableListOf(RESTAURANT_UI_MODEL_1, RESTAURANT_UI_MODEL_2)
     }
 
     private fun setupViewModel() {

@@ -18,6 +18,8 @@ fun Project.configureAndroid(additionalBlock: ((androidExtension: BaseExtension)
 
         sourceSets {
             map { it.java.srcDir("src/${it.name}/kotlin") }
+            this.getByName("test").java.srcDir("src/sharedTest/kotlin")
+            this.getByName("androidTest").java.srcDir("src/sharedTest/kotlin")
         }
 
         defaultConfig {
