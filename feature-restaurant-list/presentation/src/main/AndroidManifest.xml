@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="challenge.android.feature.restaurants.presentation">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="challenge.android.feature.restaurants.presentation">
+
+    <application>
+        <activity android:name=".RestaurantListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>
