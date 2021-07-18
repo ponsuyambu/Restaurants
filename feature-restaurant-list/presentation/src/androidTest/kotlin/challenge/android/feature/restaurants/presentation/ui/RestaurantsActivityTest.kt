@@ -3,8 +3,11 @@ package challenge.android.feature.restaurants.presentation.ui
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import challenge.android.common.utils.SingleLiveEvent
+import challenge.android.feature.restaurants.presentation.R
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
 import challenge.android.instrumentation.testutils.lazyActivityScenarioRule
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -64,5 +67,16 @@ class RestaurantsActivityTest {
             verify { showProgress.observe(it, any()) }
             verify { error.observe(it, any()) }
         }
+    }
+
+    @Test
+    fun shouldShowProgress_WTO_LiveDataSubject() {
+        /*** Case 1 ***/
+        showProgress.postValue(true)
+        assertDisplayed(R.id.progressShimmer)
+
+        /*** Case 2 ***/
+        showProgress.postValue(false)
+        assertNotDisplayed(R.id.progressShimmer)
     }
 }

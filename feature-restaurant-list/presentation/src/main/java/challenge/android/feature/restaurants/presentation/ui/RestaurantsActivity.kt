@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import challenge.android.common.extensions.bind
 import challenge.android.feature.restaurants.presentation.R
 import challenge.android.feature.restaurants.presentation.databinding.ActivityRestaurantListBinding
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
@@ -26,7 +27,7 @@ class RestaurantsActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.showProgress().observe(this) { }
+        binding.progressShimmer.bind(viewModel.showProgress(), this)
         viewModel.error().observe(this) { }
     }
 
