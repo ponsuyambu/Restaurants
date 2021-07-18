@@ -4,11 +4,12 @@ import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiM
 import challenge.feature.restaurants.domain.Restaurant
 import challenge.feature.restaurants.domain.RestaurantStatus
 
-fun List<Restaurant>.toUiModel() = mutableListOf<RestaurantUiModel>().apply {
-    this@toUiModel.forEach {
-        add(it.toUiModel())
+fun List<Restaurant>.toUiModel(): List<RestaurantUiModel> =
+    mutableListOf<RestaurantUiModel>().apply {
+        this@toUiModel.forEach {
+            add(it.toUiModel())
+        }
     }
-}
 
 fun Restaurant.toUiModel(): RestaurantUiModel {
     val status = when (status) {
