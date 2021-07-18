@@ -9,12 +9,15 @@ import io.mockk.coEvery
 import io.mockk.coVerifyOrder
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+
+private const val AN_ERROR = "an error occurred"
 
 @RunWith(JUnit4::class)
 class RestaurantsViewModelTest {
@@ -62,4 +65,15 @@ class RestaurantsViewModelTest {
                 showProgressObserver.onChanged(false)
             }
         }
+
+    @Test
+    fun `should show error when error happened`() = testCoroutineRule.runBlockingTest {
+        coEvery { getRestaurantListUseCase.invoke() } throws Exception(AN_ERROR)
+
+        viewModel.requestRestaurants()
+
+        verify {
+            errorObserver.onChanged(AN_ERROR)
+        }
+    }
 }

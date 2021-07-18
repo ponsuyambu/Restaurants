@@ -20,10 +20,14 @@ class RestaurantsViewModel @Inject constructor(val getRestaurantList: GetRestaur
 
     fun requestRestaurants() {
         viewModelScope.launch {
-            showProgress.value = true
-            restaurants.addAll(getRestaurantList().toUiModel())
-            showRestaurantsList.postValue(true)
-            showProgress.value = false
+            try {
+                showProgress.value = true
+                restaurants.addAll(getRestaurantList().toUiModel())
+                showRestaurantsList.postValue(true)
+                showProgress.value = false
+            } catch (e: Exception) {
+                error.value = e.message
+            }
         }
     }
 
