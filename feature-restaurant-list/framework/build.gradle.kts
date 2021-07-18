@@ -10,6 +10,5 @@ dependencies {
     timber()
     with(appModules()) {
         featureRestaurantList.data()
-        featureRestaurantList.domain()
     }
 }
