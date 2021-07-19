@@ -35,6 +35,7 @@ class UiModelMapperTest {
     }
 
     private fun assertRestaurantWithUiModel(restaurant: Restaurant, uiModel: RestaurantUiModel) {
+        assertEquals(restaurant.id, uiModel.id)
         assertEquals(restaurant.name, uiModel.name)
         assertEquals(restaurant.status.displayName(), uiModel.status)
         assertEquals(restaurant.averagePrice, uiModel.averagePrice)
