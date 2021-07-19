@@ -21,4 +21,3 @@ data class SortingValues(
     val deliveryCosts: Int,
     val minCost: Int
 )
-

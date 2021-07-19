@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
-
 class RestaurantServiceImpl constructor(private val context: Context) : RestaurantService {
     override suspend fun getRestaurants(): String = coroutineScope {
         withContext(Dispatchers.IO) {
