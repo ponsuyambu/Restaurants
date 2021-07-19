@@ -19,6 +19,7 @@ fun RestaurantStatus.displayName() = when (this) {
 
 fun Restaurant.toUiModel(): RestaurantUiModel {
     return RestaurantUiModel(
+        id,
         name,
         status.displayName(),
         rating,
