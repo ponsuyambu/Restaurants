@@ -76,7 +76,7 @@ class RestaurantsViewModelTest {
     @Test
     fun `should handle progress bar when restaurant list requested`() =
         testCoroutineRule.runBlockingTest {
-            viewModel.requestRestaurants()
+            viewModel.makeInitialRestaurantsRequest()
 
             coVerifyOrder {
                 showProgressObserver.onChanged(true)
@@ -89,7 +89,7 @@ class RestaurantsViewModelTest {
     fun `should show error when error happened`() = testCoroutineRule.runBlockingTest {
         coEvery { getRestaurantListUseCase.invoke() } throws Exception(AN_ERROR)
 
-        viewModel.requestRestaurants()
+        viewModel.makeInitialRestaurantsRequest()
 
         verify { errorObserver.onChanged(AN_ERROR) }
     }
@@ -104,7 +104,7 @@ class RestaurantsViewModelTest {
                 listOf(RESTAURANT_UI_MODEL_1, RESTAURANT_UI_MODEL_2)
             every { restaurantList.toUiModel() } returns listOf
 
-            viewModel.requestRestaurants()
+            viewModel.makeInitialRestaurantsRequest()
 
             val restaurants = viewModel.restaurants()
             coVerifyOrder {

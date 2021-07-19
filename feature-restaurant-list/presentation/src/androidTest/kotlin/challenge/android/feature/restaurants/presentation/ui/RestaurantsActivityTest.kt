@@ -57,7 +57,7 @@ class RestaurantsActivityTest {
 
     @Test
     fun shouldRequestRestaurantList_When_ScreenIsShown() {
-        verify { viewModel.requestRestaurants() }
+        verify { viewModel.makeInitialRestaurantsRequest() }
     }
 
     @Test

@@ -2,14 +2,19 @@ package challenge.android.feature.restaurants.presentation.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import challenge.android.feature.restaurants.presentation.databinding.RowItemRestuarantBinding
 import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiModel
 
-class RestaurantsAdapter(
-    private val restaurants: List<RestaurantUiModel>,
-) : RecyclerView.Adapter<RestaurantsAdapter.RestaurantViewHolder>() {
+private val diffCallback = object : DiffUtil.ItemCallback<RestaurantUiModel>() {
+    override fun areItemsTheSame(old: RestaurantUiModel, new: RestaurantUiModel) = old.id == new.id
+    override fun areContentsTheSame(old: RestaurantUiModel, new: RestaurantUiModel) = old == new
+}
 
+class RestaurantsAdapter :
+    ListAdapter<RestaurantUiModel, RestaurantsAdapter.RestaurantViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         RestaurantViewHolder(
             RowItemRestuarantBinding.inflate(
@@ -20,9 +25,7 @@ class RestaurantsAdapter(
         )
 
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) =
-        holder.bind(restaurants[position])
-
-    override fun getItemCount() = restaurants.size
+        holder.bind(getItem(position))
 
     class RestaurantViewHolder(
         private val binding: RowItemRestuarantBinding,
