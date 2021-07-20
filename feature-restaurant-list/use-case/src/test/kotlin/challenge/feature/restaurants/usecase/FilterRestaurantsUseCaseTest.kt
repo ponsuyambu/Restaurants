@@ -6,7 +6,9 @@ import challenge.feature.restaurants.domain.RestaurantsFilterer
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class FilterRestaurantsUseCaseTest : BaseTest() {
@@ -21,9 +23,14 @@ class FilterRestaurantsUseCaseTest : BaseTest() {
     fun `should call restaurants filterer when the case case is invoked`() {
         val mockRestaurants = mockk<List<Restaurant>>()
         val nameFilter = "some filter value"
+        val restaurantsSlot = slot<List<Restaurant>>()
+        val nameFilterSlot = slot<String>()
 
         filterRestaurantsUseCase(mockRestaurants, nameFilter)
 
-        verify { restaurantsFilterer.invoke(mockRestaurants, nameFilter) }
+        verify { restaurantsFilterer.invoke(capture(restaurantsSlot), capture(nameFilterSlot)) }
+        // Should pass the same reference, alert: '===' not '=='
+        assertTrue(mockRestaurants === restaurantsSlot.captured)
+        assertTrue(nameFilter === nameFilterSlot.captured)
     }
 }
