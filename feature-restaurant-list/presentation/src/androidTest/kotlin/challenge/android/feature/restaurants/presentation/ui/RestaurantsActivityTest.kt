@@ -140,6 +140,6 @@ class RestaurantsActivityTest {
         every { viewModel.showProgress() } returns showProgress
         every { viewModel.error() } returns error
         every { viewModel.showRestaurantsList() } returns showRestaurantsList
-        every { viewModel.restaurants() } returns restaurants
+//        every { viewModel.restaurants() } returns restaurants
     }
 }

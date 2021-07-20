@@ -3,15 +3,13 @@ package challenge.android.feature.restaurants.presentation.mapper
 import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_1
 import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_2
 import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiModel
+import challenge.android.testutils.BaseTest
 import challenge.feature.restaurants.domain.Restaurant
 import challenge.feature.restaurants.domain.RestaurantStatus
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
-@RunWith(JUnit4::class)
-class UiModelMapperTest {
+class UiModelMapperTest : BaseTest() {
     @Test
     fun `should convert Restaurant to RestaurantUiModel`() {
         val restaurantUiModel = RESTAURANT_1.toUiModel()

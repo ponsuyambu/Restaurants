@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 open class BaseTest {
     @Before
-    fun setUp() {
+    open fun setUp() {
         MockKAnnotations.init(this)
     }
 }

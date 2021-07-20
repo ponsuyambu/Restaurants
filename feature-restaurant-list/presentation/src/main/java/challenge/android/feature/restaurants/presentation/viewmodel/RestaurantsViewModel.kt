@@ -36,7 +36,7 @@ class RestaurantsViewModel @Inject constructor(
     private var sourceRestaurants =
         emptyList<Restaurant>() // back up field, used to restore the original when filter is cleared
     private var filterJob: Job? = null
-    private var isInitialRequestMade = false
+    private var isInitialRequestMade = false // to handle activity recreation flow
     private var nameFilterValue = ""
     val sortingOptions = SortType.values()
 
@@ -68,15 +68,19 @@ class RestaurantsViewModel @Inject constructor(
         filterJob = viewModelScope.launch {
             delay(500) // throttle the user input for 500ms
             val newNameFilter = name.trim()
-            if (nameFilterValue.length > newNameFilter.length) { // deletion or char clear case => can't rely on the filtered value. Do the filter on the source list
+            // Performance optimization
+            if (isCharacterDeleted(newNameFilter)) { // deletion or char clear case => can't rely on the filtered value. Do the filter on the source list
                 restaurants.value = filterRestaurantsUseCase(sourceRestaurants, newNameFilter)
-            } else { // new char case => do the filtering in already filtered value
+            } else { // new char added - case => do the filtering in already filtered value
                 restaurants.value =
                     restaurants.value?.let { filterRestaurantsUseCase(it, newNameFilter) }
             }
             nameFilterValue = newNameFilter
         }
     }
+
+    private fun isCharacterDeleted(newNameFilter: String) =
+        nameFilterValue.length > newNameFilter.length
 
     fun onSortOptionSelected(sortType: SortType) {
         selectedSort.value = sortType
