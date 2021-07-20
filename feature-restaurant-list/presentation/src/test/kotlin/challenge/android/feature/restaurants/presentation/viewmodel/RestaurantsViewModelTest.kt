@@ -76,7 +76,6 @@ class RestaurantsViewModelTest : BaseTest() {
         // logics in domain level itself.
         coEvery { sortRestaurantsUseCase.invoke(any(), any()) } returns RESTAURANT_LIST
         coEvery { filterRestaurantsUseCase.invoke(any(), any()) } returns RESTAURANT_LIST
-
     }
 
     @After
@@ -133,7 +132,6 @@ class RestaurantsViewModelTest : BaseTest() {
                 restaurantsObserver.onChanged(RESTAURANT_LIST.toUiModel())
                 showRestaurantsListObserver.onChanged(true)
                 showProgressObserver.onChanged(false)
-
             }
         }
 
@@ -159,7 +157,6 @@ class RestaurantsViewModelTest : BaseTest() {
 
         advanceTimeBy(500)
         verify { restaurantsObserver.onChanged(listOf(RESTAURANT_1, RESTAURANT_3).toUiModel()) }
-
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -175,23 +172,21 @@ class RestaurantsViewModelTest : BaseTest() {
             )
             every { filterRestaurantsUseCase.invoke(any(), any()) } returns initialFilteredList
 
-            //Case #1
+            // Case #1
             viewModel.onNameFilterChanged("Pizza")
 
             advanceTimeBy(500)
             verify { filterRestaurantsUseCase.invoke(RESTAURANT_LIST, "Pizza") }
 
-            //Case #2: Now the user deletes the character
+            // Case #2: Now the user deletes the character
             viewModel.onNameFilterChanged("Piz")
 
             advanceTimeBy(500)
             verify { filterRestaurantsUseCase.invoke(RESTAURANT_LIST, "Piz") }
 
-            //Case #3: Now the user adds the character
+            // Case #3: Now the user adds the character
             viewModel.onNameFilterChanged("Pizz")
             advanceTimeBy(500)
             verify { filterRestaurantsUseCase.invoke(initialFilteredList, "Pizz") }
-
         }
 }
-
