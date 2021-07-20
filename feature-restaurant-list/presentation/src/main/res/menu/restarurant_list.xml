@@ -8,12 +8,22 @@
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 
     <item
         android:id="@+id/actionSort"
         android:icon="@drawable/ic_sort"
         android:title="@string/sort"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom">
+        <menu>
+            <group
+                android:id="@+id/sortGroup"
+                android:checkableBehavior="single"
+                android:icon="@drawable/ic_sort"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+
+
 </menu>
