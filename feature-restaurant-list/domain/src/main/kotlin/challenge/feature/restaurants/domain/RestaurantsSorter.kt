@@ -11,7 +11,6 @@ import challenge.feature.restaurants.domain.SortType.RATING
 import challenge.feature.restaurants.domain.SortType.STATUS
 import javax.inject.Inject
 
-
 class RestaurantsSorter @Inject constructor() {
     private fun sortRestaurantsBy(
         compareBy: ((Restaurant) -> Comparable<*>?),
