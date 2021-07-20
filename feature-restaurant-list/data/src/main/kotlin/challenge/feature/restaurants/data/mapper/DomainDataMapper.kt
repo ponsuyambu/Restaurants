@@ -4,7 +4,7 @@ import challenge.feature.restaurants.data.models.RawRestaurantList
 import challenge.feature.restaurants.domain.Restaurant
 import challenge.feature.restaurants.domain.RestaurantStatus
 
-fun RawRestaurantList.toRestaurants(): List<Restaurant> {
+fun RawRestaurantList.toDomainModel(): List<Restaurant> {
     val restaurants = mutableListOf<Restaurant>()
     this.restaurants.forEach {
         restaurants.add(
@@ -26,7 +26,8 @@ fun RawRestaurantList.toRestaurants(): List<Restaurant> {
     return restaurants
 }
 
-private fun String.toRestaurantStatus() = when (this) {
+// Visible for testing
+internal fun String.toRestaurantStatus() = when (this) {
     "open" -> RestaurantStatus.OPEN
     "closed" -> RestaurantStatus.CLOSED
     "order ahead" -> RestaurantStatus.ORDER_AHEAD
