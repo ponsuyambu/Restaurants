@@ -3,19 +3,19 @@ package challenge.feature.restaurants.domain
 object Fakes {
     val RESTAURANT_1 = Restaurant(
         "1", "Pizza to go", RestaurantStatus.OPEN, 4f,
-        10f, 45f, 5, 13f,
-        21, 0, 3
+        20f, 45f, 500, 3f,
+        21, 0, 33
     )
 
     val RESTAURANT_2 = Restaurant(
-        "2", "Delhi 6", RestaurantStatus.OPEN, 4f,
-        10f, 145f, 15, 13f,
-        12, 0, 2
+        "2", "Delhi 6", RestaurantStatus.CLOSED, 3f,
+        50f, 145f, 1500, 13f,
+        12, 0, 22
     )
 
     val RESTAURANT_3 = Restaurant(
-        "3", "Call for Pizza", RestaurantStatus.OPEN, 4f,
-        20f, 15f, 5, 113f,
+        "3", "Call for Pizza", RestaurantStatus.ORDER_AHEAD, 3f,
+        50f, 15f, 700, 113f,
         23, 6, 20
     )
 

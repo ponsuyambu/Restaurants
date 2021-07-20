@@ -1,20 +1,14 @@
 package challenge.feature.restaurants.domain
 
-import io.mockk.MockKAnnotations
+import challenge.android.testutils.BaseTest
 import io.mockk.impl.annotations.InjectMockKs
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 
-class RestaurantsFiltererTest {
+class RestaurantsFiltererTest : BaseTest() {
 
     @InjectMockKs
     private lateinit var restaurantsFilterer: RestaurantsFilterer
-
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-    }
 
     @Test
     fun `should filter the restaurant list when name value is not empty`() {

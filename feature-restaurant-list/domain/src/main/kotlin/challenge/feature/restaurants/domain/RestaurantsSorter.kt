@@ -11,6 +11,7 @@ import challenge.feature.restaurants.domain.SortType.RATING
 import challenge.feature.restaurants.domain.SortType.STATUS
 import javax.inject.Inject
 
+
 class RestaurantsSorter @Inject constructor() {
     private fun sortRestaurantsBy(
         compareBy: ((Restaurant) -> Comparable<*>?),
@@ -22,6 +23,10 @@ class RestaurantsSorter @Inject constructor() {
         return restaurants.sortedWith(comparator(compareBy).thenBy { it.name })
     }
 
+    /**
+     * Sorts the restaurant with the given sort type. If the restaurants have the same sort value,
+     * it considers the restaurant name as a secondary sort preference
+     */
     operator fun invoke(restaurants: List<Restaurant>, sortType: SortType): List<Restaurant> {
         return when (sortType) {
             STATUS -> sortRestaurantsBy({ it.status }, restaurants)
