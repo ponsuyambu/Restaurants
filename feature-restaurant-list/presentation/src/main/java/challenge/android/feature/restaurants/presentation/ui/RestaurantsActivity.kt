@@ -38,6 +38,12 @@ class RestaurantsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.restarurant_list, menu)
+        setupSortSearchMenuOptions(menu)
+        setupNameSearchMenuOption(menu)
+        return true
+    }
+
+    private fun setupSortSearchMenuOptions(menu: Menu) {
         viewModel.sortingOptions.forEach { sortType ->
             menu.findItem(R.id.actionSort).subMenu.add(
                 R.id.sortGroup,
@@ -53,8 +59,6 @@ class RestaurantsActivity : AppCompatActivity() {
         viewModel.selectedSort().observe(this) {
             menu.findItem(it.ordinal).isChecked = true
         }
-        setupNameSearchMenuOption(menu)
-        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -77,6 +81,15 @@ class RestaurantsActivity : AppCompatActivity() {
                 return true
             }
         })
+        // restore the filter on activity restart
+        with(viewModel.nameFilterValue) {
+            if (isNotBlank()) {
+                searchMenuItem.expandActionView()
+                searchView.isIconified = false
+                searchView.setQuery(this, true)
+                searchView.clearFocus()
+            }
+        }
     }
 
     private fun setupObservers() {

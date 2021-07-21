@@ -37,7 +37,8 @@ class RestaurantsViewModel @Inject constructor(
         emptyList<Restaurant>() // back up field, used to restore the original when filter is cleared
     private var filterJob: Job? = null
     private var isInitialRequestMade = false // to handle activity recreation flow
-    private var nameFilterValue = ""
+    var nameFilterValue = ""
+        private set
     val sortingOptions = SortType.values()
 
     init {
