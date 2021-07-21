@@ -1,7 +1,6 @@
 package challenge.android.feature.restaurants.presentation.mapper
 
-import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_1
-import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_2
+import challenge.android.feature.restaurants.presentation.Fakes
 import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiModel
 import challenge.android.testutils.BaseTest
 import challenge.feature.restaurants.domain.Restaurant
@@ -12,17 +11,17 @@ import org.junit.Test
 class UiModelMapperTest : BaseTest() {
     @Test
     fun `should convert Restaurant to RestaurantUiModel`() {
-        val restaurantUiModel = RESTAURANT_1.toUiModel()
+        val restaurantUiModel = Fakes.RESTAURANT_1.toUiModel()
 
-        assertRestaurantWithUiModel(RESTAURANT_1, restaurantUiModel)
+        assertRestaurantWithUiModel(Fakes.RESTAURANT_1, restaurantUiModel)
     }
 
     @Test
     fun `should convert RestaurantList to RestaurantUiModelList`() {
-        val restaurantUiModelList = listOf(RESTAURANT_1, RESTAURANT_2).toUiModel()
+        val restaurantUiModelList = listOf(Fakes.RESTAURANT_1, Fakes.RESTAURANT_2).toUiModel()
 
-        assertRestaurantWithUiModel(RESTAURANT_1, restaurantUiModelList[0])
-        assertRestaurantWithUiModel(RESTAURANT_2, restaurantUiModelList[1])
+        assertRestaurantWithUiModel(Fakes.RESTAURANT_1, restaurantUiModelList[0])
+        assertRestaurantWithUiModel(Fakes.RESTAURANT_2, restaurantUiModelList[1])
     }
 
     @Test
