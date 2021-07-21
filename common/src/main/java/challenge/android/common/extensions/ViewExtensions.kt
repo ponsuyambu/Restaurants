@@ -3,7 +3,6 @@ package challenge.android.common.extensions
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -22,28 +21,6 @@ fun View.bindVisibility(
         {
             visibility = if (it != null && it == true) {
                 onVisible?.invoke()
-                VISIBLE
-            } else {
-                GONE
-            }
-        }
-    )
-}
-
-/**
- * Binds the visibility of the textview with the given live data.
- * @param onVisible will be invoked when the item is visible to do any custom actions
- */
-fun TextView.bindVisibility(
-    liveData: LiveData<String?>,
-    lifecycleOwner: LifecycleOwner,
-    onVisible: ((String) -> Unit)? = null
-) {
-    liveData.observe(
-        lifecycleOwner,
-        {
-            visibility = if (it != null) {
-                onVisible?.invoke(it)
                 VISIBLE
             } else {
                 GONE
