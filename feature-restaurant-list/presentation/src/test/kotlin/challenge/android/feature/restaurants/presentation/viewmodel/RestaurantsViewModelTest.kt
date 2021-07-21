@@ -2,6 +2,7 @@ package challenge.android.feature.restaurants.presentation.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateHandle
 import challenge.android.feature.restaurants.presentation.Fakes.RESTAURANT_1
 import challenge.android.feature.restaurants.presentation.Fakes.RESTAURANT_3
 import challenge.android.feature.restaurants.presentation.Fakes.RESTAURANT_LIST
@@ -21,7 +22,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.coVerifyOrder
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -62,11 +62,19 @@ class RestaurantsViewModelTest : BaseTest() {
     @RelaxedMockK
     private lateinit var showRestaurantsListObserver: Observer<Boolean>
 
-    @InjectMockKs
+    private lateinit var savedStateHandle: SavedStateHandle
+
     private lateinit var viewModel: RestaurantsViewModel
 
     override fun setUp() {
         super.setUp()
+        savedStateHandle = SavedStateHandle()
+        viewModel = RestaurantsViewModel(
+            getRestaurantListUseCase,
+            sortRestaurantsUseCase,
+            filterRestaurantsUseCase,
+            savedStateHandle
+        )
         viewModel.showProgress().observeForever(showProgressObserver)
         viewModel.error().observeForever(errorObserver)
         viewModel.restaurants().observeForever(restaurantsObserver)
@@ -189,4 +197,15 @@ class RestaurantsViewModelTest : BaseTest() {
             advanceTimeBy(500)
             verify { filterRestaurantsUseCase.invoke(initialFilteredList, "Pizz") }
         }
+
+    @Test
+    fun `should do filtering on initial request when process death occured with filter value`() {
+        savedStateHandle.apply {
+            set(KEY_NAME_FILTER, "Piz")
+        }
+
+        viewModel.makeInitialRestaurantsRequest()
+
+        verify { filterRestaurantsUseCase.invoke(RESTAURANT_LIST, "Piz") }
+    }
 }

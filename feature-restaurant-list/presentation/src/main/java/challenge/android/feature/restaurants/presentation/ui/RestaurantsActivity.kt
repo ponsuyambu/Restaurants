@@ -38,8 +38,8 @@ class RestaurantsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.restarurant_list, menu)
-        setupSortSearchMenuOptions(menu)
         setupNameSearchMenuOption(menu)
+        setupSortSearchMenuOptions(menu)
         return true
     }
 
@@ -81,8 +81,8 @@ class RestaurantsActivity : AppCompatActivity() {
                 return true
             }
         })
-        // restore the filter on activity restart
-        with(viewModel.nameFilterValue) {
+        // restore the filter on activity config change
+        with(viewModel.nameFilterValue()) {
             if (isNotBlank()) {
                 searchMenuItem.expandActionView()
                 searchView.isIconified = false
