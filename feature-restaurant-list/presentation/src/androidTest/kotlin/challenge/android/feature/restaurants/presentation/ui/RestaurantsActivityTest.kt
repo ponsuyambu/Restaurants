@@ -43,6 +43,7 @@ class RestaurantsActivityTest {
 
     private lateinit var showProgress: MutableLiveData<Boolean>
     private lateinit var showRestaurantsList: MutableLiveData<Boolean>
+    private lateinit var showNoResults: MutableLiveData<Boolean>
     private lateinit var error: SingleLiveEvent<String>
     private lateinit var restaurants: MutableLiveData<List<RestaurantUiModel>>
 
@@ -68,6 +69,7 @@ class RestaurantsActivityTest {
             verify { showProgress.observe(it, any()) }
             verify { error.observe(it, any()) }
             verify { showRestaurantsList.observe(it, any()) }
+            verify { showNoResults.observe(it, any()) }
         }
     }
 
@@ -100,6 +102,12 @@ class RestaurantsActivityTest {
         assertRestaurantListWithData(restaurantList)
     }
 
+    @Test
+    fun shouldShowNoResults_WRT_LiveDataSubject() {
+        showNoResults.postValue(true)
+        assertDisplayed(R.id.lblNoResults)
+    }
+
     private fun assertRestaurantListWithData(data: List<RestaurantUiModel>) {
         BaristaRecyclerViewAssertions.assertRecyclerViewItemCount(R.id.listRestaurants, data.size)
         data.forEachIndexed { index, restaurantUiModel ->
@@ -117,11 +125,11 @@ class RestaurantsActivityTest {
             R.id.tvRating to restaurant.rating.toString()
             R.id.tvMatchScore to restaurant.matchScore.toString()
             R.id.tvNewestScore to restaurant.newScaleScore.toString()
-            R.id.tvDistance to restaurant.distance.toString()
+            R.id.tvDistance to restaurant.distance
             R.id.tvPopularity to restaurant.popularityScore.toString()
-            R.id.tvMinPrice to restaurant.minimumCost.toString()
-            R.id.tvDeliveryCost to restaurant.deliveryCost.toString()
-            R.id.tvPrice to restaurant.averagePrice.toString()
+            R.id.tvMinPrice to restaurant.minimumCost
+            R.id.tvDeliveryCost to restaurant.deliveryCost
+            R.id.tvPrice to restaurant.averagePrice
         }
 
         uiDataMap.forEach { (viewId, data) ->
@@ -138,6 +146,7 @@ class RestaurantsActivityTest {
         showProgress = spyk()
         error = spyk()
         showRestaurantsList = spyk()
+        showNoResults = spyk()
         restaurants = spyk()
     }
 
@@ -145,6 +154,7 @@ class RestaurantsActivityTest {
         every { viewModel.showProgress() } returns showProgress
         every { viewModel.error() } returns error
         every { viewModel.showRestaurantsList() } returns showRestaurantsList
+        every { viewModel.showNoResults() } returns showNoResults
         every { viewModel.restaurants() } returns restaurants
     }
 }

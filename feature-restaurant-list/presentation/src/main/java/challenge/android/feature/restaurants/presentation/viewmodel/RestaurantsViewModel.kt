@@ -40,6 +40,7 @@ class RestaurantsViewModel @Inject constructor(
     // Once the logic is done, simply we will convert it to UI model and will update the UI
     private var restaurants = MutableLiveData<List<Restaurant>>()
     private val showRestaurantsList = MutableLiveData<Boolean>()
+    private val showNoResults = MutableLiveData<Boolean>()
     private val selectedSort = savedStateHandle.getLiveData(KEY_SELECTED_SORTED, DEFAULT_SORT_TYPE)
 
     private var sourceRestaurants =
@@ -50,6 +51,8 @@ class RestaurantsViewModel @Inject constructor(
 
     init {
         displayableRestaurants.addSource(restaurants) { // link the domain and UI model
+            showNoResults.value = it.isEmpty()
+            showRestaurantsList.value = it.isNotEmpty()
             displayableRestaurants.value = it.toUiModel()
         }
     }
@@ -108,5 +111,6 @@ class RestaurantsViewModel @Inject constructor(
 
     fun restaurants(): LiveData<List<RestaurantUiModel>> = displayableRestaurants
     fun showRestaurantsList(): LiveData<Boolean> = showRestaurantsList
+    fun showNoResults(): LiveData<Boolean> = showNoResults
     fun selectedSort(): LiveData<SortType> = selectedSort
 }

@@ -54,6 +54,9 @@ class RestaurantsViewModelTest : BaseTest() {
     private lateinit var showProgressObserver: Observer<Boolean>
 
     @RelaxedMockK
+    private lateinit var showNoResultsObserver: Observer<Boolean>
+
+    @RelaxedMockK
     private lateinit var restaurantsObserver: Observer<List<RestaurantUiModel>>
 
     @RelaxedMockK
@@ -79,6 +82,7 @@ class RestaurantsViewModelTest : BaseTest() {
         viewModel.error().observeForever(errorObserver)
         viewModel.restaurants().observeForever(restaurantsObserver)
         viewModel.showRestaurantsList().observeForever(showRestaurantsListObserver)
+        viewModel.showNoResults().observeForever(showNoResultsObserver)
         coEvery { getRestaurantListUseCase.invoke() } returns RESTAURANT_LIST
         // For simplicity return the same list. We have already tested the filtering and sorting
         // logics in domain level itself.
@@ -92,6 +96,7 @@ class RestaurantsViewModelTest : BaseTest() {
         viewModel.error().removeObserver(errorObserver)
         viewModel.restaurants().removeObserver(restaurantsObserver)
         viewModel.showRestaurantsList().removeObserver(showRestaurantsListObserver)
+        viewModel.showNoResults().removeObserver(showNoResultsObserver)
         clearAllMocks()
         clearStaticMockk()
     }
@@ -207,5 +212,16 @@ class RestaurantsViewModelTest : BaseTest() {
         viewModel.makeInitialRestaurantsRequest()
 
         verify { filterRestaurantsUseCase.invoke(RESTAURANT_LIST, "Piz") }
+    }
+
+    @Test
+    fun `should show no results when results are empty`() {
+        coEvery { getRestaurantListUseCase.invoke() } returns emptyList()
+        every { sortRestaurantsUseCase.invoke(any(), any()) } returns emptyList()
+        every { filterRestaurantsUseCase.invoke(any(), any()) } returns emptyList()
+
+        viewModel.makeInitialRestaurantsRequest()
+
+        verify { showNoResultsObserver.onChanged(true) }
     }
 }

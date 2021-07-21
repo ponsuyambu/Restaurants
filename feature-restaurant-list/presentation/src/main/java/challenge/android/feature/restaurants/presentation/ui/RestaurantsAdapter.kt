@@ -37,11 +37,11 @@ class RestaurantsAdapter :
                 tvRating.text = restaurant.rating.toString()
                 tvMatchScore.text = restaurant.matchScore.toString()
                 tvNewestScore.text = restaurant.newScaleScore.toString()
-                tvDistance.text = restaurant.distance.toString()
+                tvDistance.text = restaurant.distance
                 tvPopularity.text = restaurant.popularityScore.toString()
-                tvMinPrice.text = restaurant.minimumCost.toString()
-                tvDeliveryCost.text = restaurant.deliveryCost.toString()
-                tvPrice.text = restaurant.averagePrice.toString()
+                tvMinPrice.text = restaurant.minimumCost
+                tvDeliveryCost.text = restaurant.deliveryCost
+                tvPrice.text = restaurant.averagePrice
             }
         }
     }

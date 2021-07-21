@@ -8,4 +8,5 @@
     <string name="search">Search</string>
     <string name="sort">Sort</string>
     <string name="label_min">min.</string>
+    <string name="no_results">No results</string>
 </resources>
