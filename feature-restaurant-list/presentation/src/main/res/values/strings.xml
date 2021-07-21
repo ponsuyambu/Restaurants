@@ -5,4 +5,7 @@
     <string name="min_price">Min Price</string>
     <string name="match_score">Match Score:</string>
     <string name="new_scale">Is New:</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="label_min">min.</string>
 </resources>

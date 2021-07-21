@@ -3,7 +3,9 @@ package challenge.android.feature.restaurants.presentation.ui
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import challenge.android.common.utils.SingleLiveEvent
+import challenge.android.feature.restaurants.presentation.Fakes
 import challenge.android.feature.restaurants.presentation.R
+import challenge.android.feature.restaurants.presentation.mapper.toUiModel
 import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiModel
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
 import challenge.android.instrumentation.testutils.lazyActivityScenarioRule
@@ -42,7 +44,7 @@ class RestaurantsActivityTest {
     private lateinit var showProgress: MutableLiveData<Boolean>
     private lateinit var showRestaurantsList: MutableLiveData<Boolean>
     private lateinit var error: SingleLiveEvent<String>
-    private lateinit var restaurants: MutableList<RestaurantUiModel>
+    private lateinit var restaurants: MutableLiveData<List<RestaurantUiModel>>
 
     @Before
     fun setup() {
@@ -57,7 +59,7 @@ class RestaurantsActivityTest {
 
     @Test
     fun shouldRequestRestaurantList_When_ScreenIsShown() {
-        verify { viewModel.requestRestaurants() }
+        verify { viewModel.makeInitialRestaurantsRequest() }
     }
 
     @Test
@@ -90,9 +92,12 @@ class RestaurantsActivityTest {
 
     @Test
     fun shouldDisplayRestaurantsList_With_TheReceivedData() {
-        showRestaurantsList.postValue(true)
+        val restaurantList = Fakes.RESTAURANT_LIST.toUiModel()
 
-        assertRestaurantListWithData(restaurants)
+        showRestaurantsList.postValue(true)
+        restaurants.postValue(restaurantList)
+
+        assertRestaurantListWithData(restaurantList)
     }
 
     private fun assertRestaurantListWithData(data: List<RestaurantUiModel>) {
@@ -133,7 +138,7 @@ class RestaurantsActivityTest {
         showProgress = spyk()
         error = spyk()
         showRestaurantsList = spyk()
-        restaurants = mutableListOf(RESTAURANT_UI_MODEL_1, RESTAURANT_UI_MODEL_2)
+        restaurants = spyk()
     }
 
     private fun setupViewModel() {

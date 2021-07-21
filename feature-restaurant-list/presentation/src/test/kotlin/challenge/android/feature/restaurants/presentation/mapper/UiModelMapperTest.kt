@@ -1,30 +1,27 @@
 package challenge.android.feature.restaurants.presentation.mapper
 
-import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_1
-import challenge.android.feature.restaurants.presentation.ui.RESTAURANT_2
+import challenge.android.feature.restaurants.presentation.Fakes
 import challenge.android.feature.restaurants.presentation.uimodels.RestaurantUiModel
+import challenge.android.testutils.BaseTest
 import challenge.feature.restaurants.domain.Restaurant
 import challenge.feature.restaurants.domain.RestaurantStatus
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
-@RunWith(JUnit4::class)
-class UiModelMapperTest {
+class UiModelMapperTest : BaseTest() {
     @Test
     fun `should convert Restaurant to RestaurantUiModel`() {
-        val restaurantUiModel = RESTAURANT_1.toUiModel()
+        val restaurantUiModel = Fakes.RESTAURANT_1.toUiModel()
 
-        assertRestaurantWithUiModel(RESTAURANT_1, restaurantUiModel)
+        assertRestaurantWithUiModel(Fakes.RESTAURANT_1, restaurantUiModel)
     }
 
     @Test
     fun `should convert RestaurantList to RestaurantUiModelList`() {
-        val restaurantUiModelList = listOf(RESTAURANT_1, RESTAURANT_2).toUiModel()
+        val restaurantUiModelList = listOf(Fakes.RESTAURANT_1, Fakes.RESTAURANT_2).toUiModel()
 
-        assertRestaurantWithUiModel(RESTAURANT_1, restaurantUiModelList[0])
-        assertRestaurantWithUiModel(RESTAURANT_2, restaurantUiModelList[1])
+        assertRestaurantWithUiModel(Fakes.RESTAURANT_1, restaurantUiModelList[0])
+        assertRestaurantWithUiModel(Fakes.RESTAURANT_2, restaurantUiModelList[1])
     }
 
     @Test
@@ -38,13 +35,12 @@ class UiModelMapperTest {
         assertEquals(restaurant.id, uiModel.id)
         assertEquals(restaurant.name, uiModel.name)
         assertEquals(restaurant.status.displayName(), uiModel.status)
-        assertEquals(restaurant.averagePrice, uiModel.averagePrice)
-        assertEquals(restaurant.deliveryCost, uiModel.deliveryCost)
-        assertEquals(restaurant.distance, uiModel.distance)
+        assertEquals("$CURRENCY_SYMBOL ${restaurant.averagePrice}", uiModel.averagePrice)
+        assertEquals("${restaurant.distance}$DISTANCE_UNIT", uiModel.distance)
         assertEquals(restaurant.matchScore, uiModel.matchScore)
-        assertEquals(restaurant.minimumCost, uiModel.minimumCost)
         assertEquals(restaurant.newScaleScore, uiModel.newScaleScore)
-        assertEquals(restaurant.averagePrice, uiModel.averagePrice)
+        assertEquals("$CURRENCY_SYMBOL ${restaurant.deliveryCost}", uiModel.deliveryCost)
+        assertEquals("$CURRENCY_SYMBOL ${restaurant.minimumCost}", uiModel.minimumCost)
         assertEquals(restaurant.popularityScore, uiModel.popularityScore)
     }
 }

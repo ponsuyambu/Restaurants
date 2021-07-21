@@ -1,10 +1,10 @@
 package challenge.feature.restaurants.data
 
+import challenge.android.testutils.BaseTest
 import challenge.android.testutils.TestCoroutineRule
 import challenge.feature.restaurants.data.models.RawResponseResult
 import challenge.feature.restaurants.data.service.RestaurantService
 import challenge.feature.restaurants.domain.Restaurant
-import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.InjectMockKs
@@ -12,11 +12,10 @@ import io.mockk.impl.annotations.RelaxedMockK
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class RestaurantRepositoryTest {
+class RestaurantRepositoryTest : BaseTest() {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
@@ -25,11 +24,6 @@ class RestaurantRepositoryTest {
 
     @InjectMockKs
     private lateinit var repository: RestaurantRepository
-
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-    }
 
     @Test
     fun `should call service when getRestaurants is invoked`() = testCoroutineRule.runBlockingTest {

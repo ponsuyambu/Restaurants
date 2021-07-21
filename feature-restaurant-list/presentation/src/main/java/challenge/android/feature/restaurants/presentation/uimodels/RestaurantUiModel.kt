@@ -7,9 +7,9 @@ data class RestaurantUiModel(
     val rating: Float,
     val matchScore: Float,
     val newScaleScore: Float,
-    val distance: Int,
+    val distance: String,
     val popularityScore: Float,
-    val minimumCost: Int,
-    val deliveryCost: Int,
-    val averagePrice: Int,
+    val minimumCost: String,
+    val deliveryCost: String,
+    val averagePrice: String,
 )

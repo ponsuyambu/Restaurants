@@ -1,10 +1,10 @@
 package challenge.feature.restaurants.usecase
 
+import challenge.android.testutils.BaseTest
 import challenge.android.testutils.TestCoroutineRule
 import challenge.feature.restaurants.data.RestaurantRepository
 import challenge.feature.restaurants.data.models.RawResponseResult
 import challenge.feature.restaurants.domain.Restaurant
-import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
@@ -12,7 +12,6 @@ import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,7 +19,7 @@ import org.junit.runners.JUnit4
 import java.net.ConnectException
 
 @RunWith(JUnit4::class)
-class GetRestaurantListUseCaseTest {
+class GetRestaurantListUseCaseTest : BaseTest() {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
@@ -29,11 +28,6 @@ class GetRestaurantListUseCaseTest {
 
     @InjectMockKs
     private lateinit var getRestaurantListUseCase: GetRestaurantListUseCase
-
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-    }
 
     @Test
     fun `should throw error when repository returns failure`() {
