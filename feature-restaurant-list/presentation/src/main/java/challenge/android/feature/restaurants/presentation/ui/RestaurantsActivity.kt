@@ -109,6 +109,7 @@ class RestaurantsActivity : AppCompatActivity() {
             }
         }
         binding.listRestaurants.bindVisibility(viewModel.showRestaurantsList(), this)
+        binding.lblNoResults.bindVisibility(viewModel.showNoResults(), this)
     }
 
     private fun setupRecyclerView() {

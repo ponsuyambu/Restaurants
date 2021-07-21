@@ -41,10 +41,10 @@ object Dependencies {
     }
 
     object AndroidTesting {
-        const val MOCKK = "io.mockk:mockk-android:1.11.0"
-        const val JUNIT_EXTENSIONS = "androidx.test.ext:junit:1.1.2"
-        const val TEST_RUNNER = "androidx.test:runner:1.1.0"
-        const val HILT = "com.google.dagger:hilt-android-testing:2.37"
+        private const val MOCKK = "io.mockk:mockk-android:1.11.0"
+        private const val JUNIT_EXTENSIONS = "androidx.test.ext:junit:1.1.2"
+        private const val TEST_RUNNER = "androidx.test:runner:1.1.0"
+        private const val HILT = "com.google.dagger:hilt-android-testing:2.37"
         const val BARISTA = "com.schibsted.spain:barista:3.9.0"
 
         object Espresso {
