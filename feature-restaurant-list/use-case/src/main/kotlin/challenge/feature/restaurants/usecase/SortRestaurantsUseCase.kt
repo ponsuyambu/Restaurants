@@ -6,11 +6,14 @@ import challenge.feature.restaurants.domain.SortType
 import javax.inject.Inject
 
 class SortRestaurantsUseCase @Inject constructor(private val restaurantsSorter: RestaurantsSorter) {
-    private val defaultSortType = SortType.STATUS
+
+    companion object {
+        val DEFAULT_SORT_TYPE = SortType.STATUS
+    }
 
     operator fun invoke(
         restaurants: List<Restaurant>,
-        sortType: SortType? = defaultSortType
+        sortType: SortType? = DEFAULT_SORT_TYPE
     ): List<Restaurant> =
-        restaurantsSorter(restaurants, sortType ?: defaultSortType)
+        restaurantsSorter(restaurants, sortType ?: DEFAULT_SORT_TYPE)
 }

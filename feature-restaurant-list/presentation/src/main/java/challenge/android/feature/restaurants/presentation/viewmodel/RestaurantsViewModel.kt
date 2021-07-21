@@ -52,6 +52,7 @@ class RestaurantsViewModel @Inject constructor(
                 try {
                     showProgress.value = true
                     sourceRestaurants = sortRestaurantsUseCase(getRestaurantList())
+                    selectedSort.value = SortRestaurantsUseCase.DEFAULT_SORT_TYPE
                     restaurants.value = sourceRestaurants
                     showRestaurantsList.postValue(true)
                     showProgress.value = false
