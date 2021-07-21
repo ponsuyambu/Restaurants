@@ -35,13 +35,12 @@ class UiModelMapperTest : BaseTest() {
         assertEquals(restaurant.id, uiModel.id)
         assertEquals(restaurant.name, uiModel.name)
         assertEquals(restaurant.status.displayName(), uiModel.status)
-        assertEquals(restaurant.averagePrice, uiModel.averagePrice)
-        assertEquals(restaurant.deliveryCost, uiModel.deliveryCost)
-        assertEquals(restaurant.distance, uiModel.distance)
+        assertEquals("$CURRENCY_SYMBOL ${restaurant.averagePrice}", uiModel.averagePrice)
+        assertEquals("${restaurant.distance}$DISTANCE_UNIT", uiModel.distance)
         assertEquals(restaurant.matchScore, uiModel.matchScore)
-        assertEquals(restaurant.minimumCost, uiModel.minimumCost)
         assertEquals(restaurant.newScaleScore, uiModel.newScaleScore)
-        assertEquals(restaurant.averagePrice, uiModel.averagePrice)
+        assertEquals("$CURRENCY_SYMBOL ${restaurant.deliveryCost}", uiModel.deliveryCost)
+        assertEquals("$CURRENCY_SYMBOL ${restaurant.minimumCost}", uiModel.minimumCost)
         assertEquals(restaurant.popularityScore, uiModel.popularityScore)
     }
 }

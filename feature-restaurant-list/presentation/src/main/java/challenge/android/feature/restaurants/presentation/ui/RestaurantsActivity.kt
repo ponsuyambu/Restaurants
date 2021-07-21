@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,6 +14,7 @@ import challenge.android.common.extensions.bind
 import challenge.android.common.extensions.bindVisibility
 import challenge.android.feature.restaurants.presentation.R
 import challenge.android.feature.restaurants.presentation.databinding.ActivityRestaurantListBinding
+import challenge.android.feature.restaurants.presentation.mapper.displayIcon
 import challenge.android.feature.restaurants.presentation.mapper.displayName
 import challenge.android.feature.restaurants.presentation.viewmodel.RestaurantsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +44,10 @@ class RestaurantsActivity : AppCompatActivity() {
                 sortType.ordinal,
                 sortType.ordinal,
                 sortType.displayName()
-            )
+            ).apply {
+                icon =
+                    AppCompatResources.getDrawable(this@RestaurantsActivity, sortType.displayIcon())
+            }
         }
         menu.findItem(R.id.actionSort).subMenu.setGroupCheckable(R.id.sortGroup, true, true)
         viewModel.selectedSort().observe(this) {
@@ -64,7 +69,7 @@ class RestaurantsActivity : AppCompatActivity() {
         searchView = searchMenuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
