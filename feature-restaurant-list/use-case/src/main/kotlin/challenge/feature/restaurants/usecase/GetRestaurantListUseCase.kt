@@ -9,7 +9,7 @@ class GetRestaurantListUseCase @Inject constructor(private val repository: Resta
     suspend operator fun invoke(): List<Restaurant> {
         return when (val result = repository.getRestaurants()) {
             // Handle any specific errors here -> map business specific error code here
-            // For this challenge, no specific error code handled. Simply errors are throws to the above layer
+            // For this challenge, no specific error codes handled. Simply errors are throws to the above layer
             is RawResponseResult.Error -> throw result.exception
             is RawResponseResult.Success -> result.data
         }
